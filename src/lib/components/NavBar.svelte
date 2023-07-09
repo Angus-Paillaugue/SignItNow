@@ -1,9 +1,11 @@
 <script>
+    import { Button, Dropdown, DropdownItem, Chevron } from 'flowbite-svelte'
+
     export let user;
     export let pathname;
 
     let showSeachModal = false;
-    let accountDropDown = false;
+    let placement='right'
 </script>
 
 
@@ -16,30 +18,18 @@
             <button class="flex items-center justify-center lg:justify-start w-12 h-12 rounded hover:bg-gray-300 dark:hover:bg-gray-600 lg:w-full lg:px-3 text-neutral-700 dark:text-gray-100" on:click={() => {showSeachModal = !showSeachModal}} name="revealSearchBar"><i class="bi bi-search text-2xl" ></i><span class="ml-2 text-sm font-medium lg:block hidden">Search</span></button>
         </div>
     </div>
-    <div class="relative w-full">
+    <div class="relative sm:w-full">
         {#if user}
-            <button on:click={() => {accountDropDown = !accountDropDown}} class="flex items-center justify-center lg:justify-start w-12 h-12 rounded hover:bg-gray-300 dark:hover:bg-gray-600 lg:w-full lg:px-3 text-neutral-700 dark:text-gray-100" type="button" name="openUserMenu"><i class="bi bi-person-circle text-2xl"></i><span class="ml-2 text-sm font-medium lg:block hidden">Account</span></button>
-        
-            <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div  class="absolute bottom-0 right-0 translate-x-full z-10 {accountDropDown ? "" : "hidden"} bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700" on:click={() => {accountDropDown = !accountDropDown}}>
-                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="navbarUserDropdownButton">
-                    <li>
-                        <a href="/log-out{pathname.startsWith("/log-out") ? "" : `?redirect=${pathname}`}" class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex flex-row gap-2 items-center w-full"><i class="bi bi-door-closed text-lg"></i>Sign out</a>
-                    </li>
-                    <li>
-                        <a href="/dashboard/settings" class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex flex-row gap-2 items-center w-full"><i class="bi bi-sliders text-lg"></i>Settings</a>
-                    </li>
-                    <li>
-                        <a href="/bookmarks" class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex flex-row gap-2 items-center w-full"><i class="bi bi-bookmark text-lg"></i>Bookmarks</a>
-                    </li>
-                    <li>
-                        <a href="/dashboard" class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex flex-row gap-2 items-center w-full"><i class="bi bi-person-circle text-lg"></i>Dashboard</a>
-                    </li>
-                </ul>
-            </div>
+
+            <button data-placement="right-end" class="flex items-center justify-center lg:justify-start w-12 h-12 rounded hover:bg-gray-300 dark:hover:bg-gray-600 lg:w-full lg:px-3 text-neutral-700 dark:text-gray-100" type="button"><i class="bi bi-person-circle text-2xl"></i><span class="ml-2 text-sm font-medium lg:block hidden">Account</span></button>
+            <Dropdown {placement} triggeredBy="[data-placement]" >
+                <DropdownItem href="/log-out{pathname.startsWith("/log-out") ? "" : `?redirect=${pathname}`}" class="flex flex-row gap-2 items-center"><i class="bi bi-door-closed text-lg"></i>Sign out</DropdownItem>
+                <DropdownItem href="/dashboard/settings" class="flex flex-row gap-2 items-center"><i class="bi bi-sliders text-lg"></i>Settings</DropdownItem>
+                <DropdownItem href="/dashboard/bookmarks" class="flex flex-row gap-2 items-center"><i class="bi bi-bookmark text-lg"></i>Bookmarks</DropdownItem>
+                <DropdownItem href="/dashboard" class="flex flex-row gap-2 items-center" slot="footer"><i class="bi bi-person-circle text-lg"></i>Dashboard</DropdownItem>
+            </Dropdown>
         {:else}
-            <a href="/log-in{pathname.startsWith("/log-in") ? "" : `?redirect=${pathname}`}" on:click={() => {accountDropDown = !accountDropDown}} class="flex items-center justify-center lg:justify-start w-12 h-12 rounded hover:bg-gray-300 dark:hover:bg-gray-600 lg:w-full lg:px-3 text-neutral-700 dark:text-gray-100"><i class="bi bi-person-circle text-2xl"></i><span class="ml-2 text-sm font-medium lg:block hidden">Log-in</span></a>
+            <a href="/log-in{pathname.startsWith("/log-in") ? "" : `?redirect=${pathname}`}" class="flex items-center justify-center lg:justify-start w-12 h-12 rounded hover:bg-gray-300 dark:hover:bg-gray-600 lg:w-full lg:px-3 text-neutral-700 dark:text-gray-100"><i class="bi bi-person-circle text-2xl"></i><span class="ml-2 text-sm font-medium lg:block hidden">Log-in</span></a>
         {/if}
     </div>
 </nav>

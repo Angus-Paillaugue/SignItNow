@@ -5,8 +5,6 @@ export async function POST({ cookies, request }) {
     const formData = await request.json();
     const { editName, editDescription, editImageUrl, id } = formData;
 
-    console.log(editName, editDescription, editImageUrl, id);
-
     const token = cookies.get('token') || false;
     if(token) {
         const auth = await Auth(token);

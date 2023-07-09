@@ -9,6 +9,7 @@
     const { poll, creator, user, pathname, isCreator } = data;
     $: hasSignedPetition = form?.isNowSigned ??  user ? user?.signatures.includes(poll.id) : false;
     $: signatures = form?.signatures ?? poll.signatures;
+    $: isInBookmarks = user.bookmarks.filter(bookmark => bookmark.data == poll.id).length == 1
     let editPollModal = false;
     let editName = poll.name;
     let editDescription = poll.description;
@@ -23,7 +24,6 @@
             const response = await fetch("/api/editPoll/", { method:"POST", body:JSON.stringify({editName, editDescription, editImageUrl, id:poll.id}) });
             const data = await response.json();
             const { success } = data;
-            console.log(data);
             if(success){
                 poll.name = editName;
                 poll.description = editDescription;
@@ -42,7 +42,22 @@
 </div>
 <div class="p-4 grid lg:grid-cols-12 grid-cols-1">
     <div class="lg:col-span-8 col-span-1 pr-4">
-        <h1>{poll.name}</h1>
+        <div class="flex flex-row justify-between">
+            <h1>{poll.name}</h1>
+
+            <Button colorType="gray" on:click={async() => {
+                const response = await fetch("/api/toggleBookmark/", { method:"POST", body:JSON.stringify({ bookmarkData:poll.id, bookmarkType:"petition"}) });
+                const data = await response.json();
+                const { success } = data;
+                if(success) isInBookmarks = !isInBookmarks;
+            }} >
+                {#if isInBookmarks}
+                    <i class="bi bi-bookmark-check text-2xl"></i>
+                {:else}
+                    <i class="bi bi-bookmark text-2xl"></i>
+                {/if}
+            </Button>
+        </div>
 
         <p class="mt-4 flex flex-row items-center">Started by <a href="/u/{creator.username}" class="inline-flex flex-row items-center"><img src="{creator.profilePicture}" class="h-5 w-5 inline-block mx-2" alt=""><b>{creator.username}</b></a></p>
         

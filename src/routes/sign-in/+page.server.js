@@ -32,7 +32,7 @@ export const actions = {
 
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
-        await usersRef.insertOne({ username: username, email:email, password:hash, profilePicture:"defaultProfilePicture.png", polls:[], bookmarks:[], receiveMails:true });
+        await usersRef.insertOne({ username: username, email:email, password:hash, profilePicture:"defaultProfilePicture.png", polls:[], bookmarks:[], receiveMails:true, bio:"No bio for now", banner:"/defaultBanner.jpg" });
 
         cookies.set("token", generateAccessToken(username), { path:"/" });
         if(url.searchParams.get("redirect")){
