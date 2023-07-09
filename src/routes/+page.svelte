@@ -15,7 +15,7 @@
 </div>
 
 {#if polls.length > 0}	
-	<section class="max-w-7xl mx-auto w-full p-4">
+	<section class="max-w-screen-xl mx-auto w-full p-4">
 		<h2 class="ml-4 mt-10">Our latest petitions</h2>
 		<div class="flex flex-no-wrap overflow-x-auto scrolling-touch items-start gap-4 p-4 pb-6 ">
 			{#each polls as poll}

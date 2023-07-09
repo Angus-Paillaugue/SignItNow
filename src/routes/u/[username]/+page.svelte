@@ -49,11 +49,11 @@
     {#if currentUser.signatures.length == 0}
         <h3>{currentUser.username} hasn't signed any petitions</h3>
     {:else}
-        <h3>Should i show the petition the user has signed ?</h3>
-        <p>Anyways, I don't care. Here there are</p>
-        <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-2">
+        <h3>Should i show the petitions the user has signed ?</h3>
+        <h6 class="font-normal">Anyways, I don't care. Here there are</h6>
+        <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-2 max-w-screen-xl">
             {#each signatures as signature}
-                <a href="/poll/{signature.data}" class="h-fit  flex flex-col justify-center w-full rounded-2xl bg-transparent border hover:shadow-xl transition-all hover:-translate-y-1 duration-200 relative">
+                <a href="/poll/{signature.poll.id}" class="h-fit  flex flex-col justify-center w-full rounded-2xl bg-transparent border hover:shadow-xl transition-all hover:-translate-y-1 duration-200 relative">
                     <img class="rounded-t-lg" src="{signature.poll.imageUrl}" alt="" />
                     <div class="p-4 py-6">
                         <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700 transition-all">

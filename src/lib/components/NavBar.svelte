@@ -1,5 +1,5 @@
 <script>
-    import { Button, Dropdown, DropdownItem, Chevron } from 'flowbite-svelte'
+    import { Dropdown, DropdownItem } from 'flowbite-svelte'
 
     export let user;
     export let pathname;
@@ -34,7 +34,7 @@
     </div>
 </nav>
 
-<form class="flex items-center fixed top-0 sm:left-16 lg:left-40 left-0 right-0 p-4 bg-gray-100 dark:bg-gray-800 {showSeachModal ? "translate-y-0" : "-translate-y-full"} transition-transform shadow-md"  method="GET" action="/search">   
+<form class="flex items-center fixed top-0 sm:left-16 lg:left-40 left-0 right-0 p-4 bg-gray-100 dark:bg-gray-800 {showSeachModal ? "translate-y-0" : "-translate-y-full"} transition-transform shadow-md z-40"  method="GET" action="/search">   
     <label for="searchQuery" class="sr-only">Search</label>
     <div class="relative w-full">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-neutral-700 dark:text-gray-100">

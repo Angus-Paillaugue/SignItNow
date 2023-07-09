@@ -11,7 +11,7 @@ export async function load({ params }) {
         let poll = await pollsRef.findOne({ id:signature });
         poll = poll == null ? null : (({  _id, ...o }) => o)(poll);
         return { poll:poll };
-}
+    }
     const unresolvedPromises = signatures.map(getUserData);
 
     signatures = await Promise.all(unresolvedPromises);
