@@ -4,7 +4,6 @@
     export let data;
 
     const { polls } = data;
-    console.log(polls);
 </script>
 
 <svelte:head>

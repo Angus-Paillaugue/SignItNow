@@ -40,5 +40,5 @@ You can preview the production build with `npm run preview`.
 
 # TODO:
 
- - [ ] Settings (mainly for receiving email of completed petitions)
+ - [*] Settings (mainly for receiving email of completed petitions)
  - [ ] Ability to edit petition

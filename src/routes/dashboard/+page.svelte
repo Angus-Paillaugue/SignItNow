@@ -12,6 +12,8 @@
     <h1 class="text-5xl font-semibold">{user.username}</h1>
     <hr>
     <div class="grid sm:grid-cols-2 grid-cols-1 gap-4">
+
+        
         <a href="/dashboard/my-polls" class="flex justify-center items-center w-full p-4 py-6 rounded-2xl bg-transparent border border-base-content/5 hover:shadow-xl transition-all gap-4 text-xl hover:-translate-y-1 duration-200 relative">
             <i class="bi bi-clipboard-data"></i>
             My polls
@@ -27,5 +29,7 @@
             <i class="bi bi-door-open text-2xl"></i>
             Log-out
         </a>
+
+
     </div>
 </div>
