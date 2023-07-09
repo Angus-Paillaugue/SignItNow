@@ -3,7 +3,7 @@ import { error } from "@sveltejs/kit";
 import { Auth } from "$lib/server/Auth"
 import { petitionComplete } from "$lib/utils/petitionComplete.js";
 
-export async function load({ params }) {
+export async function load({ params, locals }) {
     const { id } = params;
 
     const poll = await pollsRef.findOne({ id:id });
@@ -11,7 +11,7 @@ export async function load({ params }) {
     if(poll){
         const creator = await usersRef.findOne({ username:poll.creator });
         if(creator){
-            return { poll:(({ _id, ...o }) => o)(poll), creator:(({ _id, password, bookmarks, ...o }) => o)(creator) };
+            return { poll:(({ _id, ...o }) => o)(poll), creator:(({ _id, password, bookmarks, ...o }) => o)(creator), isCreator:creator.username == locals.user.username };
         }
     }
     

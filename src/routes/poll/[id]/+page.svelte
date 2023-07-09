@@ -1,18 +1,44 @@
 <script>
     import Button from "$lib/components/Button.svelte";
     import { enhance } from '$app/forms'
+    import { Modal } from 'flowbite-svelte'
 
     export let data;
     export let form;
 
-    const { poll, creator, user, pathname } = data;
-
+    const { poll, creator, user, pathname, isCreator } = data;
     $: hasSignedPetition = form?.isNowSigned ??  user ? user?.signatures.includes(poll.id) : false;
-
     $: signatures = form?.signatures ?? poll.signatures;
+    let editPollModal = false;
+    let editName = poll.name;
+    let editDescription = poll.description;
+    let editImageUrl = poll.imageUrl;
+
+    $: editPollFormValid = () => {
+        return editName.length > 0 && editDescription.length > 0 && editImageUrl.length > 0;
+    }
+
+    async function editPoll(){
+        if(editPollFormValid()){
+            const response = await fetch("/api/editPoll/", { method:"POST", body:JSON.stringify({editName, editDescription, editImageUrl, id:poll.id}) });
+            const data = await response.json();
+            const { success } = data;
+            console.log(data);
+            if(success){
+                poll.name = editName;
+                poll.description = editDescription;
+                poll.imageUrl = editImageUrl;
+                editPollModal = !editPollModal
+            }
+        }
+    }
 </script>
 
-<div class="w-full relative bg-no-repeat bg-center bg-cover max-h-64 lg:max-h-80" style="height: 25vw; background-image: url('{poll.imageUrl}');">
+{#if isCreator}
+    <Button class="absolute top-4 right-4 z-30" colorType="gray" on:click={() => {editPollModal = !editPollModal}}><i class="bi bi-pencil-square text-2xl"></i></Button>
+{/if}
+
+<div class="w-full relative bg-no-repeat bg-center bg-cover max-h-64 lg:max-h-80 h-[50vw] md:h-[25vw]" style=" background-image: url('{poll.imageUrl}');">
 </div>
 <div class="p-4 grid lg:grid-cols-12 grid-cols-1">
     <div class="lg:col-span-8 col-span-1 pr-4">
@@ -45,3 +71,24 @@
         </form>
     </div>
 </div>
+
+<Modal title="Edit " bind:open={editPollModal}>
+    <div>
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+        <input type="text" placeholder="The poll name" name="name" bind:value={editName} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+    <div>
+        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+        <textarea name="description" rows="4" bind:value={editDescription} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="What is this poll"></textarea>
+    </div>
+    <div>
+        <label for="imageUrl" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+        <input type="text" placeholder="The poll main image url" name="imageUrl" bind:value={editImageUrl} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+    <svelte:fragment slot='footer'>
+        <div class="w-full flex flex-row justify-between">
+            <Button colorType="gray" on:click={() => {editPollModal = !editPollModal}}>Cancel</Button>
+            <Button on:click={editPoll}>Update</Button>
+        </div>
+    </svelte:fragment>
+</Modal>
