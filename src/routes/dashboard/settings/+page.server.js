@@ -1,15 +1,14 @@
-import { Auth } from "$lib/server/Auth"
 import { usersRef, pollsRef } from "$lib/server/db"
 import { redirect } from "@sveltejs/kit";
 
 export const actions = {
-    save: async ({ cookies, request }) => {
+    save: async ({ cookies, request, locals }) => {
         const formData = Object.fromEntries(await request.formData());
         const { username, email } = formData;
 
         const token = cookies.get("token") || false;
         if(token){
-            const auth = await Auth(token);
+            const auth = locals.user
 
             await usersRef.findOneAndUpdate({ username:auth.username }, { $set:{ username:username, email:email } });
             return { success:true };
@@ -23,7 +22,7 @@ export const actions = {
 
         const token = cookies.get("token") || false;
         if(token){
-            const auth = await Auth(token);
+            const auth = locals.user
 
             await usersRef.findOneAndUpdate({ username:auth.username }, { $set:{ receiveMails:receiveMails } });
             return { success:true };
@@ -34,7 +33,7 @@ export const actions = {
     deleteAccount: async ({ cookies }) => {
         const token = cookies.get("token") || false;
         if(token){
-            const auth = await Auth(token);
+            const auth = locals.user
 
             let userPolls = await pollsRef.find({ creator:auth.username }).toArray()
 
