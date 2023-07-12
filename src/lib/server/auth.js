@@ -2,7 +2,7 @@ import { usersRef } from "./db"
 import jwt from "jsonwebtoken"
 import { AUTH_TOKEN_SECRET } from "$env/static/private"
 
-async function Auth(token) {
+async function auth(token) {
     try {
         return new Promise((resolve, reject) => {
             if(!token) reject({ error:"jwt must be provided" });
@@ -18,4 +18,4 @@ async function Auth(token) {
     }
 }
 
-export { Auth }
+export { auth }

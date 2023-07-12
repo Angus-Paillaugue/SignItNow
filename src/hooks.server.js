@@ -1,4 +1,4 @@
-import { Auth } from "$lib/server/Auth"
+import { auth } from "$lib/server/Auth"
 import { redirect } from "@sveltejs/kit";
 
 export const handle = async ({ event, resolve }) => {
@@ -6,7 +6,7 @@ export const handle = async ({ event, resolve }) => {
 
     const token = cookies.get('token') || false;
     if(token) {
-        const auth = await Auth(token);
+        const auth = await auth(token);
         if(!auth.error) {
             locals.user = auth;
         } else {
