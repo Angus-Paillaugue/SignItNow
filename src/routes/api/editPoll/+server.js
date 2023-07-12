@@ -3,13 +3,13 @@ import { Auth } from "$lib/server/auth"
 
 export async function POST({ cookies, request }) {
     const formData = await request.json();
-    const { editName, editDescription, editImageUrl, id } = formData;
+    const { editName, editDescription, editImageUrl, id, editObjective } = formData;
 
     const token = cookies.get('token') || false;
     if(token) {
         const auth = await Auth(token);
         if(!auth.error) {
-            await pollsRef.findOneAndUpdate({ id:id }, { $set:{ editName, editDescription, editImageUrl } });
+            await pollsRef.findOneAndUpdate({ id:id }, { $set:{ name:editName, description:editDescription, imageUrl:editImageUrl, objective:editObjective } });
             return new Response(JSON.stringify({ success:true }));
         }
     }

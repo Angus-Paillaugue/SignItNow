@@ -5,14 +5,14 @@
 </script>
 
 <svelte:head>
-	<title>My polls</title>
+	<title>Bookmarks</title>
 </svelte:head>
 
-<div class="max-w-screen-lg mx-auto w-full flex flex-col gap-4 p-4">
+<div class="max-w-screen-xl mt-10 mx-auto w-full flex flex-col gap-4 p-4">
     {#if bookmarks.length == 0}
-        <h3>You haven't bookmarked anything yet!</h3>
+        <h1 class="text-5xl font-semibold">You haven't bookmarked anything yet!</h1>
     {:else}
-        <h3 class="mt-10">My bookmarks</h3>
+        <h1 class="text-5xl font-semibold">My bookmarks</h1>
         <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-2">
             {#each bookmarks as bookmark}
                 {#if bookmark.type == "user"}

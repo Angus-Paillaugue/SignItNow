@@ -8,7 +8,7 @@
 	<title>Dashboard</title>
 </svelte:head>
 
-<div class="max-w-screen-xl mx-auto w-full flex flex-col gap-4 p-4">
+<div class="max-w-screen-xl mx-auto w-full flex flex-col mt-10 gap-4 p-4">
     <h1 class="text-5xl font-semibold">{user.username}</h1>
     <hr>
     <div class="grid sm:grid-cols-2 grid-cols-1 gap-4">

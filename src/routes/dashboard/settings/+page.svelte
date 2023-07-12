@@ -15,7 +15,8 @@
 </script>
 
 <div class="max-w-md mx-auto w-full mt-10">
-    <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 flex flex-col gap-6">
+    <h1 class="text-5xl font-semibold">Settings</h1>
+    <div class="w-full mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 flex flex-col gap-6">
         <Tabs style="full" defaultClass="flex rounded-lg divide-x divide-gray-200 shadow dark:divide-gray-700 w-full">
             <TabItem class="w-full" open>
                 <span slot="title">Profile</span>

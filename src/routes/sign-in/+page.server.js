@@ -5,7 +5,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { AUTH_TOKEN_SECRET } from "$env/static/private"
 
-export const load = async ({ cookies }) => {
+export const load = async ({ cookies, url }) => {
     const token = cookies.get("token") || false;
     if(token){
         const auth = await Auth(token);

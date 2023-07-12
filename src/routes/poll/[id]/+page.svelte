@@ -14,14 +14,15 @@
     let editName = poll.name;
     let editDescription = poll.description;
     let editImageUrl = poll.imageUrl;
+    let editObjective = poll.objective;
 
     $: editPollFormValid = () => {
-        return editName.length > 0 && editDescription.length > 0 && editImageUrl.length > 0;
+        return editName.length > 0 && editDescription.length > 0 && editImageUrl.length > 0 && editObjective > 0;
     }
 
     async function editPoll(){
         if(editPollFormValid()){
-            const response = await fetch("/api/editPoll/", { method:"POST", body:JSON.stringify({editName, editDescription, editImageUrl, id:poll.id}) });
+            const response = await fetch("/api/editPoll/", { method:"POST", body:JSON.stringify({ editName, editDescription, editObjective, editImageUrl, id:poll.id }) });
             const data = await response.json();
             const { success } = data;
             if(success){
@@ -99,6 +100,10 @@
     <div>
         <label for="imageUrl" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
         <input type="text" placeholder="The poll main image url" name="imageUrl" bind:value={editImageUrl} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+    <div>
+        <label for="objective" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Objective</label>
+        <input type="number" placeholder="The number of signatures" name="objective" bind:value={editObjective} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
     </div>
     <svelte:fragment slot='footer'>
         <div class="w-full flex flex-row justify-between">
