@@ -12,7 +12,7 @@ async function auth(token) {
                 if(!user) return reject({ error: { status:500, responseText:"An error occurred while fetching your user data"} });
                 else resolve((({ password, _id, ...o }) => o)(user));
             });
-        }).catch((err) => {return { error: err }})
+        }).catch((err) => {return { error: err }});
     }catch (err){
         return { error: err }
     }
