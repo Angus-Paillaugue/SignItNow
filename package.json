@@ -19,6 +19,7 @@
 	"type": "module",
 	"dependencies": {
 		"@popperjs/core": "^2.11.8",
+		"@sveltejs/adapter-vercel": "^3.0.2",
 		"bcrypt": "^5.1.0",
 		"emailjs": "^4.0.2",
 		"flowbite": "^1.7.0",
