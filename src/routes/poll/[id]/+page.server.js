@@ -1,6 +1,5 @@
 import { pollsRef, usersRef } from "$lib/server/db"
 import { error } from "@sveltejs/kit";
-import { Auth } from "$lib/server/Auth"
 import { petitionComplete } from "$lib/utils/petitionComplete.js";
 
 export async function load({ params, locals }) {
@@ -19,12 +18,12 @@ export async function load({ params, locals }) {
 };
 
 export const actions = {
-    default: async ({ cookies, params }) => {
+    default: async ({ cookies, params, locals }) => {
         const { id } = params;
         const token = cookies.get('token') || false;
 
         if(token) {
-            const auth = await Auth(token);
+            const auth = locals.user
             if(!auth.error) {
                 await usersRef.findOneAndUpdate({ username:auth.username }, [{ $set: { signatures: { $cond: [ { $in: [ id, "$signatures" ] }, { $setDifference: [ "$signatures", [ id ] ] }, { $concatArrays: [ "$signatures", [ id ] ] } ] } } }]);
                 let isNowSigned = await usersRef.findOne({ username:auth.username });

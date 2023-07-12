@@ -22,7 +22,7 @@ export const actions = {
 
         const token = cookies.get("token") || false;
         if(token){
-            const auth = locals.user
+            const auth = locals.user;
 
             await usersRef.findOneAndUpdate({ username:auth.username }, { $set:{ receiveMails:receiveMails } });
             return { success:true };
@@ -33,7 +33,7 @@ export const actions = {
     deleteAccount: async ({ cookies }) => {
         const token = cookies.get("token") || false;
         if(token){
-            const auth = locals.user
+            const auth = locals.user;
 
             let userPolls = await pollsRef.find({ creator:auth.username }).toArray()
 
