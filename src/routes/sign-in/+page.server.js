@@ -4,10 +4,10 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { AUTH_TOKEN_SECRET } from "$env/static/private"
 
-export const load = async ({ cookies, url }) => {
+export const load = async ({ cookies, url, locals }) => {
     const token = cookies.get("token") || false;
     if(token){
-        const auth = locals.user
+        const auth = locals.user;
         if(!auth.error) {
             if(url.searchParams.get("redirect")){
                 throw redirect(303, url.searchParams.get("redirect"));
