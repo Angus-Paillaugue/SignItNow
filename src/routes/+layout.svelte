@@ -3,7 +3,10 @@
     import "../app.css";
 
     export let data;
-    const { user, pathname } = data
+    let user;
+    let pathname;
+    $: user = data.user;
+    $: pathname = data.pathname;
 </script>
 
 <NavBar user={user} pathname={pathname} />

@@ -9,7 +9,7 @@
     const { poll, creator, user, pathname, isCreator } = data;
     $: hasSignedPetition = form?.isNowSigned ??  user ? user?.signatures.includes(poll.id) : false;
     $: signatures = form?.signatures ?? poll.signatures;
-    $: isInBookmarks = user.bookmarks.filter(bookmark => bookmark.data == poll.id).length == 1
+    $: isInBookmarks = user?.bookmarks?.filter(bookmark => bookmark.data == poll.id).length == 1
     let editPollModal = false;
     let editName = poll.name;
     let editDescription = poll.description;
