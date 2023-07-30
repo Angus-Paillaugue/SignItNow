@@ -60,7 +60,7 @@
             </Button>
         </div>
 
-        <p class="mt-4 flex flex-row items-center">Started by <a href="/u/{creator.username}" class="inline-flex flex-row items-center"><img src="{creator.profilePicture}" class="h-5 w-5 inline-block mx-2" alt=""><b>{creator.username}</b></a></p>
+        <p class="mt-4 flex flex-row items-center">Started by <a href="/u/{creator.username}" class="inline-flex flex-row items-center rounded-full"><img src="{creator.profilePicture}" class="h-5 w-5 inline-block mx-2" alt=""><b>{creator.username}</b></a></p>
         
 <pre class="mt-4">
 {poll.description}
